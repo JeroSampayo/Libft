@@ -6,7 +6,7 @@
 #    By: jmiras-s <jmiras-s@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/19 21:01:28 by jmiras-s          #+#    #+#              #
-#    Updated: 2022/09/19 21:12:38 by jmiras-s         ###   ########.fr        #
+#    Updated: 2022/09/19 21:29:29 by jmiras-s         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,11 +21,14 @@ OBJ_DIR = obj/
 INCLUDE = -I ./
 
 SRC = ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isprint.c \
-	  ft_strlen.c
-OBJ = $(addprefix $(OBJ_DIR), $(SRC:.c=.o))
+	  ft_strlen.c 
 
+OBJ = $(addprefix $(OBJ_DIR), $(SRC:.c=.o))
 DEP = $(addsuffix .d, $(basename $(OBJ)))
 
+#SRC_BNS =
+#OBJ_BND = 
+#DEP_BNS = 
 # $@ es nombre de la regla, lo que hay delante de :
 # $< indica la primera dependencia de la regla, solo lo primero :
 # $^ indica todas dependencias de la recla :
@@ -34,7 +37,7 @@ DEP = $(addsuffix .d, $(basename $(OBJ)))
 
 $(OBJ_DIR)%.o: %.c
 	mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -MMD $(INCLUDE) -c $< -o $@
+	$(CC) -MMD $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 # SRCBONUS
 
@@ -45,6 +48,8 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	ar -rcs $(NAME) $(OBJ)
 
+-include $(DEP)
+# -include $(DEP_BNS)
 clean:
 	$(RM) -r $(OBJ_DIR)
 
