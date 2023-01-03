@@ -6,58 +6,83 @@
 #    By: jmiras-s <jmiras-s@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/19 21:01:28 by jmiras-s          #+#    #+#              #
-#    Updated: 2022/09/19 21:29:29 by jmiras-s         ###   ########.fr        #
+#    Updated: 2022/12/21 16:58:22 by jmiras-s         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+# ----- NAME -
 
 # Comentario 
 NAME = libft.a
 
-CFLAGS = -Wall -Werror -Wextra
-RM = rm -f
+MKFL	= Makefile
+
+# ----- PATH -
+
+SRC_DIR	= src/
+UTL_DIR	= util/
 OBJ_DIR = obj/
 
-#i miuscula carpeta minuscula texto
-INCLUDE = -I ./
+# ----- CMDS -
+
+CFLAGS	= -Wall -Werror -Wextra
+AR		= ar -rcs
+RM		= rm -f
+MK		= mkdir -p
+
+# RM -f (Ignora cuando no hay que borrar)
+# mkdir -p (si no existe creamelo sino ignora el comando)
+
+# ----- SRCS -
+
+#i mayuscula carpeta minuscula texto
+INCLUDE = -I./
 
 SRC = ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isprint.c \
-	  ft_strlen.c 
+	  ft_strlen.c ft_memset.c ft_bzero.c ft_strlcat.c ft_memcpy.c ft_itoa.c \
+	  ft_memmove.c ft_memcmp.c ft_atoi.c ft_tolower.c ft_toupper.c ft_strchr.c \
+	  ft_strrchr.c ft_strncmp.c ft_strnstr.c ft_calloc.c ft_strdup.c ft_strlcpy.c ft_memchr.c \
+	  ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_substr.c ft_strjoin.c \
+	  ft_strtrim.c ft_itoa.c ft_strmapi.c ft_striteri.c ft_split.c \
 
-OBJ = $(addprefix $(OBJ_DIR), $(SRC:.c=.o))
+OBJ = $(addprefix $(OBJ_DIR), $(SRC:.c=.o))	
 DEP = $(addsuffix .d, $(basename $(OBJ)))
 
-#SRC_BNS =
-#OBJ_BND = 
-#DEP_BNS = 
 # $@ es nombre de la regla, lo que hay delante de :
 # $< indica la primera dependencia de la regla, solo lo primero :
 # $^ indica todas dependencias de la recla :
 # -o cambio de nombre
 # -MMD Creacion de dependencias
 
-$(OBJ_DIR)%.o: %.c
-	mkdir -p $(dir $@)
-	$(CC) -MMD $(CFLAGS) $(INCLUDE) -c $< -o $@
+# ----- RULE -
+
+$(OBJ_DIR)%.o: %.c $(MKFL)
+	$(MK) $(dir $@)
+	$(CC) $(CFLAGS) -MT $@ -MMD -MP $(INCLUDE) -c $< -o $@
 
 # SRCBONUS
 
-all: $(NAME)
+all:
+	$(MAKE) $(NAME)
 
 # ar (CREACION Y COMPILACION LIBRERIA) -rcs (r/recoge compilacion c/de forma silenciada s/monta objetos)
 
-$(NAME): $(OBJ)
-	ar -rcs $(NAME) $(OBJ)
+$(NAME):: $(OBJ)
+	$(AR) $(NAME) $(OBJ)
 
 -include $(DEP)
-# -include $(DEP_BNS)
-clean:
-	$(RM) -r $(OBJ_DIR)
 
-fclean: clean
+clean:
+	$(RM) -r $(OBJ_DIR) 
+
+fclean:
+	$(MAKE) clean
 	$(RM) $(NAME)
 
-re: fclean all
+re:
+	$(MAKE) fclean
+	$(MAKE)
 
-# PHONY , Si ya existe el archivo no confunde la recla del archivo
+# PHONY , Si ya existe el mismo nombre de archivo no lo confunde.
 
 .PHONY: all fclean clean re
