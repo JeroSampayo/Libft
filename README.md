@@ -225,5 +225,5 @@ ft_putchar	outputs the character c to the standard output <br>
 #### putendl_fd	outputs the string s to the file descriptor fd followed by a ’\n’<br>
 
 ### •[ft_putnbr_fd](ft_putnbr_fd.c)•  <br>
-#### putnbr_fd	outputs the integer n to the file descriptor fd<br>
+#### putnbr_fd	outputs the integer n to the file descriptor fd.<br>
 
