@@ -6,7 +6,7 @@
 #    By: jmiras-s <jmiras-s@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/19 21:01:28 by jmiras-s          #+#    #+#              #
-#    Updated: 2022/12/21 16:58:22 by jmiras-s         ###   ########.fr        #
+#    Updated: 2023/05/29 17:49:55 by jmiras-s         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,8 @@ SRC = ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isprint.c \
 	  ft_strrchr.c ft_strncmp.c ft_strnstr.c ft_calloc.c ft_strdup.c ft_strlcpy.c ft_memchr.c \
 	  ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_substr.c ft_strjoin.c \
 	  ft_strtrim.c ft_itoa.c ft_strmapi.c ft_striteri.c ft_split.c \
+
+BONUS = ft_lstnew.c \
 
 OBJ = $(addprefix $(OBJ_DIR), $(SRC:.c=.o))	
 DEP = $(addsuffix .d, $(basename $(OBJ)))
