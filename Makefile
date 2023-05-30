@@ -6,14 +6,14 @@
 #    By: jmiras-s <jmiras-s@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/19 21:01:28 by jmiras-s          #+#    #+#              #
-#    Updated: 2023/05/29 17:49:55 by jmiras-s         ###   ########.fr        #
+#    Updated: 2023/05/30 18:06:41 by jmiras-s         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # ----- NAME -
 
 # Comentario 
-NAME = libft.a
+NAME 	= libft.a
 
 MKFL	= Makefile
 
@@ -22,6 +22,12 @@ MKFL	= Makefile
 SRC_DIR	= src/
 UTL_DIR	= util/
 OBJ_DIR = obj/
+
+# ----- COLORS -
+
+BRed= \033[1;31m
+NC = \033[0m
+BGreen= \033[1;32m
 
 # ----- CMDS -
 
@@ -47,8 +53,8 @@ SRC = ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isprint.c \
 
 BONUS = ft_lstnew.c \
 
-OBJ = $(addprefix $(OBJ_DIR), $(SRC:.c=.o))	
-DEP = $(addsuffix .d, $(basename $(OBJ)))
+OBJ = $(SRC:.c=.o)
+OBJB = $(BONUS:.c=.o)	
 
 # $@ es nombre de la regla, lo que hay delante de :
 # $< indica la primera dependencia de la regla, solo lo primero :
@@ -58,33 +64,31 @@ DEP = $(addsuffix .d, $(basename $(OBJ)))
 
 # ----- RULE -
 
-$(OBJ_DIR)%.o: %.c $(MKFL)
-	$(MK) $(dir $@)
-	$(CC) $(CFLAGS) -MT $@ -MMD -MP $(INCLUDE) -c $< -o $@
+%.o: %.c $(MKFL) libft.h
+	$(CC) $(CFLAGS) -c $< -o $@
 
-# SRCBONUS
-
-all:
-	$(MAKE) $(NAME)
+all: $(NAME)
 
 # ar (CREACION Y COMPILACION LIBRERIA) -rcs (r/recoge compilacion c/de forma silenciada s/monta objetos)
 
-$(NAME):: $(OBJ)
+$(NAME): $(OBJ)
 	$(AR) $(NAME) $(OBJ)
+	@echo "$(BGreen)  *COMPILADO* \033[0m"
 
--include $(DEP)
+bonus:	$(OBJB)
+	$(AR) $(NAME) $(OBJB)
+	@echo "$(BGreen)  *COMPILADO* \033[0m"
 
 clean:
-	$(RM) -r $(OBJ_DIR) 
+	$(RM) *.o
+	@echo "$(BRed)  *BORRADO* \033[0m"
 
-fclean:
-	$(MAKE) clean
+fclean: clean
 	$(RM) $(NAME)
 
-re:
-	$(MAKE) fclean
-	$(MAKE)
+re: fclean $(NAME)
 
 # PHONY , Si ya existe el mismo nombre de archivo no lo confunde.
 
 .PHONY: all fclean clean re
+
