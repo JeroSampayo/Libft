@@ -6,31 +6,26 @@
 #    By: jmiras-s <jmiras-s@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/19 21:01:28 by jmiras-s          #+#    #+#              #
-#    Updated: 2023/05/30 18:06:41 by jmiras-s         ###   ########.fr        #
+#    Updated: 2023/07/19 16:44:37 by jmiras-s         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # ----- NAME -
-
-# Comentario 
 NAME 	= libft.a
-
 MKFL	= Makefile
+BNAME   = .bonus
 
 # ----- PATH -
-
 SRC_DIR	= src/
 UTL_DIR	= util/
 OBJ_DIR = obj/
 
 # ----- COLORS -
-
 BRed= \033[1;31m
 NC = \033[0m
 BGreen= \033[1;32m
 
 # ----- CMDS -
-
 CFLAGS	= -Wall -Werror -Wextra
 AR		= ar -rcs
 RM		= rm -f
@@ -51,10 +46,13 @@ SRC = ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isprint.c \
 	  ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_substr.c ft_strjoin.c \
 	  ft_strtrim.c ft_itoa.c ft_strmapi.c ft_striteri.c ft_split.c \
 
-BONUS = ft_lstnew.c \
+SRCBONUS = ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c ft_lstadd_back.c \
+	ft_lstdelone.c  ft_lstclear.c ft_lstiter.c ft_lstmap.c \
 
-OBJ = $(SRC:.c=.o)
-OBJB = $(BONUS:.c=.o)	
+OBJS = $(SRC:.c=.o)
+OBJSBONUS = $(SRCBONUS:.c=.o)	
+DEPS = $(SRC:.c=.d) 
+DEPSBONUS = $(SRCBONUS:.c=.d)
 
 # $@ es nombre de la regla, lo que hay delante de :
 # $< indica la primera dependencia de la regla, solo lo primero :
@@ -65,30 +63,36 @@ OBJB = $(BONUS:.c=.o)
 # ----- RULE -
 
 %.o: %.c $(MKFL) libft.h
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -MMD -c $< -o $@
+	@echo "$(BGreen)Copilando:	$(NC)$<"
 
 all: $(NAME)
 
-# ar (CREACION Y COMPILACION LIBRERIA) -rcs (r/recoge compilacion c/de forma silenciada s/monta objetos)
+# ar (CREACION LIBRERIA) -rcs (rewrite create sort)
 
-$(NAME): $(OBJ)
-	$(AR) $(NAME) $(OBJ)
-	@echo "$(BGreen)  *COMPILADO* \033[0m"
+$(NAME): $(OBJS)
+	@$(AR) $(NAME) $(OBJS)
+	@echo "$(BGreen)  COMPILADO* \033[0m"
 
-bonus:	$(OBJB)
-	$(AR) $(NAME) $(OBJB)
-	@echo "$(BGreen)  *COMPILADO* \033[0m"
+bonus: $(BNAME)
+
+$(BNAME)::	$(OBJS) $(OBJSBONUS)
+	@$(AR) $(NAME) $(OBJS) $(OBJSBONUS)
+	@echo "	$(BGreen)\nBonus compilation successful\n$(NC)"
+	@touch $@
+
+$(BNAME)::
+	@echo -n
 
 clean:
-	$(RM) *.o
-	@echo "$(BRed)  *BORRADO* \033[0m"
+	@$(RM) $(OBJS) $(DEPS) $(OBJSBONUS) $(DEPSBONUS)
+	@echo "$(BRed) Libft .o and .d deleted \033[0m"
 
 fclean: clean
-	$(RM) $(NAME)
+	@$(RM) $(NAME) $(BNAME)
+	@echo "$(BRed) Libft exec deleted $(NC)"
 
-re: fclean $(NAME)
+re: fclean all
 
-# PHONY , Si ya existe el mismo nombre de archivo no lo confunde.
-
-.PHONY: all fclean clean re
+.PHONY: all fclean clean re bonus
 
