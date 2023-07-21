@@ -226,3 +226,31 @@ ft_putchar	outputs the character c to the standard output <br>
 
 ### •[ft_putnbr_fd](ft_putnbr_fd.c)•  <br>
 #### putnbr_fd	outputs the integer n to the file descriptor fd.<br>
+
+# Bonus functions 
+### •[ft_lstnew](ft_lstnew.c)•  <br>
+#### *ft_lstnew Creates a new linked list node with the given 'content' and returns its pointer. The 'next' pointer is set to NULL. Note: This implementation doesn't use malloc, as it is not strictly necessary for the function's functionality.<br>
+
+### •[ft_lstadd_front](ft_lstadd_front.c)•  <br>
+#### ft_lstadd_front	Adds the 'new' node to the front of the linked list pointed to by 'lst'. The 'new' node becomes the new first node in the list. This function modifies the list's pointers and does not use malloc.<br>
+
+### •[ft_lstadd_back](ft_lstadd_back.c)•  <br>
+#### ft_lstadd_back Adds the 'new' node to the back of the linked list pointed to by 'lst'. The 'new' node becomes the new first node in the list. This function modifies the list's pointers and does not use malloc.<br>
+
+### •[*ft_lstlast](ft_lstlast.c)•  <br>
+#### *ft_lstlast Returns a pointer to the last node of the linked list 'lst'. If the list is empty or NULL, it returns NULL. This function does not use malloc..<br>
+
+### •[ft_lstsize](ft_lstsize.c)•  <br>
+#### ft_lstsize Returns the number of nodes in the linked list 'lst'. This function traverses the list, counting the nodes, and does not use malloc.<br>
+
+### •[ft_lstdelone](ft_lstdelone.c)•  <br>
+#### ft_lstdelone Deletes a single node from the linked list pointed to by 'lst'. It uses the 'del' function to free the content of the node and then frees the memory occupied by the node itself. Note: This function does not use malloc for memory allocation.<br>
+
+### •[ft_lstclear](ft_lstclear.c)•  <br>
+#### ft_lstclear Clears the entire linked list pointed to by 'lst' and frees the memory for each node and its content using the provided 'del' function. This function does not use malloc for memory allocation.<br>  
+
+### •[ft_lstiter](ft_lstiter.c)•  <br>
+#### ft_lstiter Applies the function 'f' to each node's content in the linked list 'lst'. It traverses the list using a while loop, calling 'f' for the content of each node. This function does not use malloc for memory allocation.<br>
+
+### •[*ft_lstmap](ft_lstmap.c)•  <br>
+#### *ft_lstmap Maps each node of the linked list 'lst' using function 'f', creating a new list with the transformed content. If memory allocation fails, it frees the allocated memory and returns NULL. The 'del' function is used for freeing memory of transformed content in case of allocation failure. This function may use malloc for memory allocation.<br>  
