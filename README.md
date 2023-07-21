@@ -1,4 +1,4 @@
-# Libft Library
+# Libft Library + Bonus
 
 ![C](https://forthebadge.com/images/badges/made-with-c.svg)
 ![GIT](https://forthebadge.com/images/badges/uses-git.svg)
@@ -7,7 +7,7 @@
 The goal of this project is to create a C library that contains a collection of commonly used functions that can be easily reused in future projects. By developing this library, you'll be able to streamline your coding process, reduce redundancy in your code, and improve overall code efficiency. The library will include a variety of functions, ranging from basic operations such as string manipulation and mathematical calculations, to more complex algorithms and data structures. So, whether you're a seasoned programmer or just starting out, this project offers a great opportunity to hone your skills and contribute to the development of useful software.
 
 
-# Libft Libreria
+# Libft Libreria + Bonus
 
 ![C](https://forthebadge.com/images/badges/made-with-c.svg)
 ![GIT](https://forthebadge.com/images/badges/uses-git.svg)
